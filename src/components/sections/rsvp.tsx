@@ -1,6 +1,7 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { useEffect, useRef } from "react";
 import { submitRsvp } from "@/app/actions";
 import { Button } from "@/components/ui/button";
@@ -29,7 +30,7 @@ function SubmitButton() {
 }
 
 export function Rsvp() {
-  const [state, formAction] = useFormState(submitRsvp, initialState);
+  const [state, formAction] = useActionState(submitRsvp, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
 
