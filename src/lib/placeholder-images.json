@@ -1,3 +1,34 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "couple-1",
+      "description": "A happy couple smiling.",
+      "imageUrl": "https://images.unsplash.com/photo-1555689070-2d15336749b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxoYXBweSUyMGNvdXBsZXxlbnwwfHx8fDE3NjE4MjUwNjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "happy couple"
+    },
+    {
+      "id": "couple-2",
+      "description": "A couple holding hands.",
+      "imageUrl": "https://images.unsplash.com/photo-1695049761557-cb56d348c297?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8aG9sZGluZyUyMGhhbmRzfGVufDB8fHx8MTc2MTg4MzUxNHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "holding hands"
+    },
+    {
+      "id": "couple-3",
+      "description": "A couple enjoying a sunset.",
+      "imageUrl": "https://images.unsplash.com/photo-1519307212971-dd9561667ffb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjb3VwbGUlMjBzdW5zZXR8ZW58MHx8fHwxNzYxODk2MjMzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "couple sunset"
+    },
+    {
+      "id": "couple-4",
+      "description": "A couple in a formal embrace.",
+      "imageUrl": "https://images.unsplash.com/photo-1559504205-41a34fc371ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmb3JtYWwlMjBjb3VwbGV8ZW58MHx8fHwxNzYxOTE2MDI2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "formal couple"
+    },
+    {
+      "id": "hero-bg",
+      "description": "A beautiful floral background for a wedding invitation.",
+      "imageUrl": "https://images.unsplash.com/photo-1521129866021-4313ccf20e9e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx3ZWRkaW5nJTIwZmxvd2Vyc3xlbnwwfHx8fDE3NjE5MDY5ODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "wedding flowers"
+    }
+  ]
 }
