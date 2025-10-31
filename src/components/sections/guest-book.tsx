@@ -1,17 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  collection,
-  query,
-  onSnapshot,
-  orderBy,
-  limit,
-} from "firebase/firestore";
-import { db } from "@/firebase";
+import { getRsvps } from "@/app/actions";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { FloralDivider } from "../floral-divider";
 
 interface RsvpEntry {
@@ -19,37 +12,34 @@ interface RsvpEntry {
   name: string;
   message?: string;
   attending: "yes" | "no";
-  createdAt: {
-    seconds: number;
-    nanoseconds: number;
-  };
+  createdAt: string; // Changed to string for simplicity with local data
 }
 
 export function GuestBook() {
   const [rsvps, setRsvps] = useState<RsvpEntry[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!db) return;
+    async function fetchRsvps() {
+      try {
+        setIsLoading(true);
+        const entries = await getRsvps();
+        const attendingGuests = entries
+          .filter((data: any) => data.attending === "yes" && data.message)
+          .map((doc: any, index: number) => ({ id: `${index}-${doc.createdAt}`, ...doc }));
+        setRsvps(attendingGuests);
+      } catch (error) {
+        console.error("Failed to fetch RSVPs:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    
+    // Fetch data immediately and then set an interval to fetch periodically
+    fetchRsvps();
+    const interval = setInterval(fetchRsvps, 5000); // Refresh every 5 seconds
 
-    const q = query(
-      collection(db, "rsvps"),
-      orderBy("createdAt", "desc"),
-      limit(50)
-    );
-
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const entries: RsvpEntry[] = [];
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        // Hanya tampilkan pesan dari tamu yang hadir
-        if (data.attending === "yes" && data.message) {
-          entries.push({ id: doc.id, ...data } as RsvpEntry);
-        }
-      });
-      setRsvps(entries);
-    });
-
-    return () => unsubscribe();
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -67,7 +57,9 @@ export function GuestBook() {
           <CardContent>
             <ScrollArea className="h-96 w-full">
               <div className="space-y-6 p-4">
-                {rsvps.length > 0 ? (
+                {isLoading ? (
+                   <p className="text-muted-foreground">Memuat pesan...</p>
+                ) : rsvps.length > 0 ? (
                   rsvps.map((rsvp) => (
                     <div key={rsvp.id} className="flex items-start gap-4 text-left">
                       <Avatar>
@@ -77,7 +69,7 @@ export function GuestBook() {
                       </Avatar>
                       <div className="flex-1">
                         <p className="font-semibold">{rsvp.name}</p>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground break-words">
                           {rsvp.message}
                         </p>
                       </div>

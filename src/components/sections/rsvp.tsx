@@ -22,7 +22,7 @@ function SubmitButton() {
   const { pending } = useFormStatus();
   return (
     <Button type="submit" disabled={pending} className="w-full" size="lg">
-      {pending ? "Sending..." : "Send RSVP"}
+      {pending ? "Mengirim..." : "Kirim Konfirmasi"}
       <Send className="ml-2 h-4 w-4" />
     </Button>
   );
@@ -36,7 +36,7 @@ export function Rsvp() {
   useEffect(() => {
     if (state.message && !state.errors) {
       toast({
-        title: "RSVP Submitted!",
+        title: "Konfirmasi Terkirim!",
         description: state.message,
       });
       formRef.current?.reset();

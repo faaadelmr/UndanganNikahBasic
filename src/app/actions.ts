@@ -1,9 +1,9 @@
 "use server";
 
 import { z } from "zod";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { getFirestore } from "firebase-admin/firestore";
-import { adminApp } from "@/firebase/server";
+
+// Data akan disimpan di memori server, akan hilang saat server restart.
+const rsvps: any[] = [];
 
 const rsvpSchema = z.object({
   name: z.string().min(2, "Nama terlalu pendek"),
@@ -28,17 +28,27 @@ export async function submitRsvp(prevState: any, formData: FormData) {
   }
   
   try {
-    const db = getFirestore(adminApp);
-    await addDoc(collection(db, "rsvps"), {
+    const newRsvp = {
       ...validatedFields.data,
-      createdAt: serverTimestamp(),
-    });
+      createdAt: new Date(),
+    };
+    rsvps.unshift(newRsvp); // Menambahkan ke awal array
+    
+    // Untuk simulasi, kita bisa mengembalikan data yang ada
+    // console.log("Current RSVPs:", rsvps);
+    
     return { message: "Terima kasih atas konfirmasi Anda!", errors: null };
-  } catch (error) {
-    console.error("Error writing to Firestore: ", error);
+  } catch (error: any) {
+    console.error("Error writing to local storage: ", error);
     return {
       message: "Terjadi kesalahan saat mengirimkan RSVP Anda. Silakan coba lagi.",
       errors: null,
     };
   }
+}
+
+// Fungsi baru untuk mendapatkan data RSVP
+export async function getRsvps() {
+  // Mengembalikan salinan array agar tidak termutasi dari luar
+  return JSON.parse(JSON.stringify(rsvps));
 }
