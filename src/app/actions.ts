@@ -1,55 +1,44 @@
 "use server";
 
 import { z } from "zod";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { getFirestore } from "firebase-admin/firestore";
+import { adminApp } from "@/firebase/server";
 
 const rsvpSchema = z.object({
-  name: z.string().min(2, "Name is too short"),
-  attending: z.enum(["yes", "no"]),
-  guests: z.string().optional(),
-});
-
-const songSchema = z.object({
-  suggesterName: z.string().min(2, "Name is too short"),
-  song: z.string().min(3, "Song title is too short"),
+  name: z.string().min(2, "Nama terlalu pendek"),
+  attending: z.enum(["yes", "no"], {
+    errorMap: () => ({ message: "Silakan pilih kehadiran Anda." }),
+  }),
+  message: z.string().optional(),
 });
 
 export async function submitRsvp(prevState: any, formData: FormData) {
   const validatedFields = rsvpSchema.safeParse({
     name: formData.get("name"),
     attending: formData.get("attending"),
-    guests: formData.get("guests"),
+    message: formData.get("message"),
   });
 
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: "Please correct the errors below.",
+      message: "Harap perbaiki kesalahan di bawah ini.",
     };
   }
   
-  // Here you would typically save the data to a database.
-  // For this example, we'll just log it.
-  console.log("New RSVP:", validatedFields.data);
-
-  return { message: "Thank you for your RSVP!", errors: null };
-}
-
-export async function suggestSong(prevState: any, formData: FormData) {
-  const validatedFields = songSchema.safeParse({
-    suggesterName: formData.get("suggesterName"),
-    song: formData.get("song"),
-  });
-
-  if (!validatedFields.success) {
+  try {
+    const db = getFirestore(adminApp);
+    await addDoc(collection(db, "rsvps"), {
+      ...validatedFields.data,
+      createdAt: serverTimestamp(),
+    });
+    return { message: "Terima kasih atas konfirmasi Anda!", errors: null };
+  } catch (error) {
+    console.error("Error writing to Firestore: ", error);
     return {
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: "Please correct the errors below.",
+      message: "Terjadi kesalahan saat mengirimkan RSVP Anda. Silakan coba lagi.",
+      errors: null,
     };
   }
-
-  // Here you would typically save the data to a database.
-  // For this example, we'll just log it.
-  console.log("New Song Suggestion:", validatedFields.data);
-  
-  return { message: "Thank you for the song suggestion!", errors: null };
 }

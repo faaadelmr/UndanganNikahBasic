@@ -8,9 +8,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Send } from "lucide-react";
+import { FloralDivider } from "../floral-divider";
 
 const initialState = {
   message: "",
@@ -50,47 +51,40 @@ export function Rsvp() {
 
   return (
     <section id="rsvp" className="w-full py-16 md:py-24">
+       <FloralDivider className="mb-16 md:mb-24"/>
       <div className="container mx-auto px-4">
         <Card className="max-w-2xl mx-auto shadow-xl">
           <CardHeader className="text-center">
             <CardTitle className="text-4xl md:text-5xl">RSVP</CardTitle>
-            <CardDescription>We'd love to know if you can make it.</CardDescription>
+            <CardDescription>Konfirmasi kehadiran Anda dan tinggalkan pesan.</CardDescription>
           </CardHeader>
           <CardContent>
             <form ref={formRef} action={formAction} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="name">Your Name</Label>
+                <Label htmlFor="name">Nama Anda</Label>
                 <Input id="name" name="name" placeholder="John Doe" required />
                 {state.errors?.name && <p className="text-sm text-destructive">{state.errors.name[0]}</p>}
               </div>
               
               <div className="space-y-2">
-                <Label>Will you be attending?</Label>
+                <Label>Apakah Anda akan hadir?</Label>
                 <RadioGroup name="attending" defaultValue="yes" className="flex gap-4">
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="yes" id="yes" />
-                    <Label htmlFor="yes">Yes, I'll be there!</Label>
+                    <Label htmlFor="yes">Ya, saya akan datang!</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="no" id="no" />
-                    <Label htmlFor="no">Sorry, can't make it</Label>
+                    <Label htmlFor="no">Maaf, tidak bisa datang</Label>
                   </div>
                 </RadioGroup>
+                 {state.errors?.attending && <p className="text-sm text-destructive">{state.errors.attending[0]}</p>}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="guests">Number of Guests</Label>
-                <Select name="guests" defaultValue="1">
-                  <SelectTrigger id="guests" className="w-full">
-                    <SelectValue placeholder="Select number of guests" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="1">1</SelectItem>
-                    <SelectItem value="2">2</SelectItem>
-                    <SelectItem value="3">3</SelectItem>
-                    <SelectItem value="4">4</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Label htmlFor="message">Pesan & Doa</Label>
+                <Textarea id="message" name="message" placeholder="Tuliskan pesan dan doa Anda di sini..." />
+                {state.errors?.message && <p className="text-sm text-destructive">{state.errors.message[0]}</p>}
               </div>
 
               <SubmitButton />
