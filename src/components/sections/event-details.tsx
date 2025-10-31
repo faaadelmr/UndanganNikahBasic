@@ -6,18 +6,18 @@ const events = [
   {
     icon: Heart,
     title: "Akad Nikah",
-    date: "Saturday, August 24, 2024",
-    time: "09:00 AM - 11:00 AM",
-    location: "Grand Ballroom, The Plaza Hotel",
-    address: "123 Blossom Avenue, Garden City",
+    date: "Minggu, 19 Maret 2023",
+    time: "08:00 WIB - selesai",
+    location: "Kediaman Mempelai Wanita",
+    address: "Dusun Krajan RT. 006 RW. 002, Desa Neglasari, Kec. Dramaga, Kab. Bogor",
   },
   {
     icon: Heart,
     title: "Resepsi",
-    date: "Saturday, August 24, 2024",
-    time: "07:00 PM - 10:00 PM",
-    location: "Grand Ballroom, The Plaza Hotel",
-    address: "123 Blossom Avenue, Garden City",
+    date: "Minggu, 19 Maret 2023",
+    time: "19:00 WIB - selesai",
+    location: "Kediamaan Mempelai Wanita",
+    address: "Dusun Krajan RT. 006 RW. 002, Desa Neglasari, Kec. Dramaga, Kab. Bogor",
   },
 ];
 
@@ -25,9 +25,9 @@ export function EventDetails() {
   return (
     <section id="events" className="w-full py-16 md:py-24 bg-secondary/50">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-4xl md:text-5xl font-headline mb-4">The Wedding</h2>
-        <p className="max-w-2xl mx-auto text-muted-foreground mb-12">
-          We joyfully invite you to celebrate our union. Your presence is the greatest gift of all.
+        <h2 className="text-4xl md:text-5xl font-headline mb-4">Acara Pernikahan</h2>
+        <p className="max-w-3xl mx-auto text-muted-foreground mb-12 px-4">
+          Bismillahirrahmanirrahim. Assalamu’alaikum Wr. Wb. Dengan memohon Rahmat dan Ridho Allah SWT, kami bermaksud menyelenggarakan acara pernikahan putra-putri kami.
         </p>
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {events.map((event) => (
@@ -58,6 +58,9 @@ export function EventDetails() {
             </Card>
           ))}
         </div>
+         <p className="max-w-3xl mx-auto text-muted-foreground mt-12 px-4">
+          Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai. Atas kehadiran dan doa restunya kami ucapkan terima kasih. Wassalamu’alaikum Wr. Wb.
+        </p>
       </div>
       <FloralDivider className="mt-16 md:mt-24" />
     </section>

@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'Blossom Bonds',
-  description: 'Join us to celebrate our wedding!',
+  title: 'Pernikahan Lidia & Abil',
+  description: 'Dengan memohon Rahmat dan Ridho Allah SWT, kami bermaksud menyelenggarakan acara pernikahan putra-putri kami.',
 };
 
 export default function RootLayout({

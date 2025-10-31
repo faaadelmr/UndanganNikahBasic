@@ -15,7 +15,7 @@ export default function Home() {
       <Rsvp />
       <SongSuggestions />
       <footer className="w-full py-8 text-center text-muted-foreground">
-        <p>Made with ♡ for Olivia & Liam</p>
+        <p>Hormat kami, Lidia & Abil</p>
       </footer>
     </main>
   );
