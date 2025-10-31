@@ -5,7 +5,7 @@ import { MapPin, Navigation } from "lucide-react";
 export function Location() {
   const address = "Kp. Cihideung Kecil RT.01 RW.04 Desa Neglasari Kecamatan Dramaga Kabupaten Bogor";
   const googleMapsUrl = "https://maps.app.goo.gl/qtkZQ1su1w1vkkAH8";
-  const googleMapsEmbedUrl = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.815915421531!2d106.7210183147708!3d-6.545163995267134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMzInNDIuNiJTIDEwNsKwNDMnMjMuMCJF!5e0!3m2!1sen!2sid!4v1678886400000!5m2!1sen!2sid`;
+  const googleMapsEmbedUrl = "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6328.595952289873!2d106.71927139446966!3d-6.546404391152571!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c4d2d128eb5d%3A0xb712295850afcbd1!2sJl.%20Cihideung%20Kecil%2C%20Neglasari%2C%20Kec.%20Dramaga%2C%20Kabupaten%20Bogor%2C%20Jawa%20Barat%2016680!5e0!3m2!1sen!2sid!4v1761919087804!5m2!1sen!2sid";
 
   return (
     <section id="location" className="w-full py-16 md:py-24">
