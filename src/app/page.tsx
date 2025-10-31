@@ -4,6 +4,7 @@ import { GuestBook } from "@/components/sections/guest-book";
 import { Hero } from "@/components/sections/hero";
 import { Location } from "@/components/sections/location";
 import { Rsvp } from "@/components/sections/rsvp";
+import { Gift } from "@/components/sections/gift";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Gallery />
       <Rsvp />
       <GuestBook />
+      <Gift />
       <footer className="w-full py-8 text-center text-muted-foreground">
         <p>Hormat kami, Lidia & Abil</p>
       </footer>

@@ -1,0 +1,77 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useToast } from "@/hooks/use-toast";
+import { Copy, Gift as GiftIcon } from "lucide-react";
+import { FloralDivider } from "../floral-divider";
+
+interface GiftAccount {
+  bank: string;
+  name: string;
+  number: string;
+}
+
+const accounts: GiftAccount[] = [
+  {
+    bank: "BCA",
+    name: "Lidia Dwi Putri",
+    number: "1234567890",
+  },
+  {
+    bank: "DANA",
+    name: "Yusril P L",
+    number: "081234567890",
+  },
+];
+
+export function Gift() {
+  const { toast } = useToast();
+
+  const handleCopy = (text: string, bank: string) => {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: "Berhasil Disalin",
+      description: `Nomor rekening ${bank} telah disalin ke clipboard.`,
+    });
+  };
+
+  return (
+    <section id="gift" className="w-full py-16 md:py-24">
+      <FloralDivider className="mb-16 md:mb-24"/>
+      <div className="container mx-auto px-4 text-center">
+        <h2 className="text-4xl md:text-5xl font-headline mb-4">Hadiah Pernikahan</h2>
+        <p className="max-w-2xl mx-auto text-muted-foreground mb-12">
+          Doa restu Anda adalah hadiah terindah bagi kami. Namun, jika Anda ingin memberikan tanda kasih, kami telah menyediakan beberapa opsi di bawah ini.
+        </p>
+        <Card className="max-w-2xl mx-auto shadow-xl">
+          <CardHeader>
+            <CardTitle className="flex items-center justify-center gap-3 text-2xl">
+              <GiftIcon className="w-6 h-6" />
+              Kirim Hadiah
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {accounts.map((account) => (
+              <div key={account.bank} className="rounded-lg border bg-card p-4 text-left">
+                <p className="font-semibold text-lg">{account.bank}</p>
+                <p className="text-muted-foreground">a.n. {account.name}</p>
+                <div className="flex items-center justify-between mt-2">
+                  <p className="text-lg font-mono tracking-wider">{account.number}</p>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handleCopy(account.number, account.bank)}
+                  >
+                    <Copy className="mr-2 h-4 w-4" />
+                    Salin
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      </div>
+    </section>
+  );
+}
