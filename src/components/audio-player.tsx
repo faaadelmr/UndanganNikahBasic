@@ -6,8 +6,7 @@ import { Play, Pause } from "lucide-react";
 
 export function AudioPlayer() {
   // Ganti URL ini dengan URL file musik Anda
-  const songUrl = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3";
-  
+  const localSongUrl = "/cincin.mp3.m4a";
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -37,7 +36,7 @@ export function AudioPlayer() {
 
   return (
     <>
-      <audio ref={audioRef} src={songUrl} loop />
+      <audio ref={audioRef} src={localSongUrl} loop />
       <div className="fixed bottom-4 right-4 z-50">
         <Button
           size="icon"
