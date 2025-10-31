@@ -6,13 +6,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { FloralDivider } from "../floral-divider";
+import { Badge } from "@/components/ui/badge";
 
 interface RsvpEntry {
   id: string;
   name: string;
   message?: string;
   attending: "yes" | "no";
-  createdAt: string; // Changed to string for simplicity with local data
+  createdAt: string;
 }
 
 export function GuestBook() {
@@ -24,10 +25,8 @@ export function GuestBook() {
       try {
         setIsLoading(true);
         const entries = await getRsvps();
-        const attendingGuests = entries
-          .filter((data: any) => data.attending === "yes" && data.message)
-          .map((doc: any, index: number) => ({ id: `${index}-${doc.createdAt}`, ...doc }));
-        setRsvps(attendingGuests);
+        const processedEntries = entries.map((doc: any, index: number) => ({ id: `${index}-${doc.createdAt}`, ...doc }));
+        setRsvps(processedEntries);
       } catch (error) {
         console.error("Failed to fetch RSVPs:", error);
       } finally {
@@ -35,9 +34,8 @@ export function GuestBook() {
       }
     }
     
-    // Fetch data immediately and then set an interval to fetch periodically
     fetchRsvps();
-    const interval = setInterval(fetchRsvps, 5000); // Refresh every 5 seconds
+    const interval = setInterval(fetchRsvps, 5000); 
 
     return () => clearInterval(interval);
   }, []);
@@ -68,10 +66,17 @@ export function GuestBook() {
                         </AvatarFallback>
                       </Avatar>
                       <div className="flex-1">
-                        <p className="font-semibold">{rsvp.name}</p>
-                        <p className="text-sm text-muted-foreground break-words">
-                          {rsvp.message}
-                        </p>
+                        <div className="flex items-center gap-2">
+                           <p className="font-semibold">{rsvp.name}</p>
+                           <Badge variant={rsvp.attending === 'yes' ? 'secondary' : 'outline'}>
+                             {rsvp.attending === 'yes' ? 'Hadir' : 'Tidak Hadir'}
+                           </Badge>
+                        </div>
+                        {rsvp.message && (
+                           <p className="text-sm text-muted-foreground break-words mt-1">
+                             {rsvp.message}
+                           </p>
+                        )}
                       </div>
                     </div>
                   ))

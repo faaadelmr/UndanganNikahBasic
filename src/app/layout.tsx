@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
+import { AudioPlayer } from '@/components/audio-player';
 
 export const metadata: Metadata = {
   title: 'Pernikahan Lidia & Abil',
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className="font-body antialiased">
         {children}
         <Toaster />
+        <AudioPlayer />
       </body>
     </html>
   );
