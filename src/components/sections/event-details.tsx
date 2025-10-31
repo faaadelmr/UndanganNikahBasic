@@ -9,15 +9,15 @@ const events = [
     date: "Minggu, 19 Maret 2023",
     time: "08:00 WIB - selesai",
     location: "Kediaman Mempelai Wanita",
-    address: "Dusun Krajan RT. 006 RW. 002, Desa Neglasari, Kec. Dramaga, Kab. Bogor",
+    address: "Kp. Cihideung Kecil RT.01 RW.04 Desa Neglasari Kecamatan Dramaga Kabupaten Bogor",
   },
   {
     icon: Heart,
     title: "Resepsi",
     date: "Minggu, 19 Maret 2023",
     time: "19:00 WIB - selesai",
-    location: "Kediamaan Mempelai Wanita",
-    address: "Dusun Krajan RT. 006 RW. 002, Desa Neglasari, Kec. Dramaga, Kab. Bogor",
+    location: "Kediaman Mempelai Wanita",
+    address: "Kp. Cihideung Kecil RT.01 RW.04 Desa Neglasari Kecamatan Dramaga Kabupaten Bogor",
   },
 ];
 

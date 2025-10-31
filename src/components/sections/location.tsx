@@ -3,8 +3,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Navigation } from "lucide-react";
 
 export function Location() {
-  const address = "Dusun Krajan RT. 006 RW. 002, Desa Neglasari, Kec. Dramaga, Kab. Bogor";
-  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+  const address = "Kp. Cihideung Kecil RT.01 RW.04 Desa Neglasari Kecamatan Dramaga Kabupaten Bogor";
+  const googleMapsUrl = "https://maps.app.goo.gl/qtkZQ1su1w1vkkAH8";
+  const googleMapsEmbedUrl = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.815915421531!2d106.7210183147708!3d-6.545163995267134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMzInNDIuNiJTIDEwNsKwNDMnMjMuMCJF!5e0!3m2!1sen!2sid!4v1678886400000!5m2!1sen!2sid`;
 
   return (
     <section id="location" className="w-full py-16 md:py-24">
@@ -17,7 +18,7 @@ export function Location() {
           <CardContent className="p-0">
             <div className="w-full h-64 md:h-96 bg-secondary flex items-center justify-center">
              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.815915421531!2d106.7210183147708!3d-6.545163995267134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c3a444ffffff%3A0x675e2b4a5fa5c2c3!2sDusun%20Krajan%2C%20Neglasari%2C%20Dramaga%2C%20Bogor%2C%20West%20Java%2016680!5e0!3m2!1sen!2sid!4v1678886400000!5m2!1sen!2sid"
+                src={googleMapsEmbedUrl}
                 width="100%" 
                 height="100%" 
                 style={{border:0}} 
@@ -32,7 +33,7 @@ export function Location() {
                   <MapPin className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                   <div>
                     <h3 className="text-xl font-semibold">Kediaman Mempelai Wanita</h3>
-                    <p className="text-muted-foreground">Dusun Krajan RT. 006 RW. 002, Desa Neglasari, Kec. Dramaga, Kab. Bogor</p>
+                    <p className="text-muted-foreground">{address}</p>
                   </div>
                 </div>
                 <Button asChild size="lg" className="mt-4 md:mt-0 w-full md:w-auto">
