@@ -14,14 +14,14 @@ interface GiftAccount {
 
 const accounts: GiftAccount[] = [
   {
-    bank: "BCA",
-    name: "Lidia Dwi Putri",
-    number: "1234567890",
+    bank: "BNI",
+    name: "Yusril Parhabil Lutfi",
+    number: "0897951806",
   },
   {
-    bank: "DANA",
-    name: "Yusril P L",
-    number: "081234567890",
+    bank: "OVO",
+    name: "Yusril Parhabil Lutfi",
+    number: "081295673928",
   },
 ];
 
