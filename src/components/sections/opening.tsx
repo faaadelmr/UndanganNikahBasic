@@ -7,11 +7,10 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
-export function Opening({ guest }: { guest: string }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+export function Opening({ guest, onOpen }: { guest: string; onOpen: () => void; }) {
   const [isFading, setIsFading] = useState(false);
   const [isRendered, setIsRendered] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const heroImage = PlaceHolderImages.find(img => img.id === 'hero-bg');
 
@@ -23,9 +22,12 @@ export function Opening({ guest }: { guest: string }) {
     // Simulate loading time, then fade out
     setTimeout(() => {
       setIsLoading(false);
-      setIsOpen(true);
       setIsFading(true);
-    }, 500); // Reduced loading time to 500ms
+      // Call the onOpen callback passed from the parent page
+      if (onOpen) {
+        onOpen();
+      }
+    }, 500);
   };
   
   useEffect(() => {
@@ -33,7 +35,7 @@ export function Opening({ guest }: { guest: string }) {
       // Unmount component after fade-out transition
       const fadeOutTimer = setTimeout(() => {
         setIsRendered(false);
-      }, 1000);
+      }, 1000); // This duration should match the fade-out animation
       return () => clearTimeout(fadeOutTimer);
     }
   }, [isFading]);

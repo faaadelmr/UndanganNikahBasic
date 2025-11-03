@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import { EventDetails } from "@/components/sections/event-details";
 import { GuestBook } from "@/components/sections/guest-book";
 import { Hero } from "@/components/sections/hero";
@@ -8,24 +9,32 @@ import { Gift } from "@/components/sections/gift";
 import { Opening } from "@/components/sections/opening";
 
 export default function GuestPage({ params }: { params: { guest: string } }) {
+  const [isInvitationOpen, setIsInvitationOpen] = useState(false);
+  
   // The guest name is URL-encoded. We need to decode it.
   // The '+' character is a space.
   const guestName = decodeURIComponent(params.guest || '').replace(/\+/g, ' ');
 
+  const handleOpenInvitation = () => {
+    setIsInvitationOpen(true);
+  };
+
   return (
     <>
-      <Opening guest={guestName} />
-      <main className="flex flex-col items-center justify-center">
-        <Hero />
-        <EventDetails />
-        <Location />
-        <Rsvp />
-        <GuestBook />
-        <Gift />
-        <footer className="w-full py-8 text-center text-muted-foreground">
-          <p>Hormat kami, Lidia & Abil</p>
-        </footer>
-      </main>
+      {!isInvitationOpen && <Opening guest={guestName} onOpen={handleOpenInvitation} />}
+      {isInvitationOpen && (
+        <main className="flex flex-col items-center justify-center animate-fade-in-up">
+          <Hero />
+          <EventDetails />
+          <Location />
+          <Rsvp />
+          <GuestBook />
+          <Gift />
+          <footer className="w-full py-8 text-center text-muted-foreground">
+            <p>Hormat kami, Lidia & Abil</p>
+          </footer>
+        </main>
+      )}
     </>
   );
 }
