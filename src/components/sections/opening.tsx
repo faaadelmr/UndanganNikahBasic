@@ -16,8 +16,11 @@ export function Opening({ guest }: { guest: string }) {
   const heroImage = PlaceHolderImages.find(img => img.id === 'hero-bg');
 
   const handleOpen = () => {
+    if (isLoading) return; // Mencegah klik ganda saat sedang loading
+    
     setIsLoading(true);
-    // Simulate loading and fade out
+    
+    // Simulasi waktu loading, lalu fade out
     setTimeout(() => {
       setIsLoading(false);
       setIsOpen(true);
@@ -27,22 +30,23 @@ export function Opening({ guest }: { guest: string }) {
   
   useEffect(() => {
     if (isFading) {
-      // Remove the component from DOM after fade out transition
-      setTimeout(() => {
+      // Hapus komponen dari DOM setelah transisi fade out selesai
+      const fadeOutTimer = setTimeout(() => {
         setIsRendered(false);
       }, 1000);
+      return () => clearTimeout(fadeOutTimer);
     }
   }, [isFading]);
 
   useEffect(() => {
-    // Prevent body scroll when the opening page is visible
+    // Mencegah scroll body saat halaman pembuka terlihat
     if (isRendered) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
     }
 
-    // Cleanup function to restore scrolling
+    // Fungsi cleanup untuk mengembalikan scrolling
     return () => {
       document.body.style.overflow = 'auto';
     };
