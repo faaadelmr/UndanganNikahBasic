@@ -27,7 +27,7 @@ export function Opening({ guest, onOpen }: { guest: string; onOpen: () => void; 
       if (onOpen) {
         onOpen();
       }
-    }, 500);
+    }, 100); // Reduced delay to make it feel very fast
   };
   
   useEffect(() => {
