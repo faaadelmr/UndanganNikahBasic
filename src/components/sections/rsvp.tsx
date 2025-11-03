@@ -31,7 +31,7 @@ function SubmitButton() {
   );
 }
 
-export function Rsvp({ guestName }: { guestName?: string }) {
+export function Rsvp({ guestName, onRsvpSubmitted }: { guestName?: string, onRsvpSubmitted: () => void }) {
   const [state, formAction] = useActionState(submitRsvp, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
@@ -46,6 +46,7 @@ export function Rsvp({ guestName }: { guestName?: string }) {
         description: state.message,
       });
       formRef.current?.reset();
+      onRsvpSubmitted(); // Refresh the guest book
     } else if (state.message && state.errors) {
       toast({
         title: "Error",
@@ -53,7 +54,7 @@ export function Rsvp({ guestName }: { guestName?: string }) {
         variant: "destructive",
       });
     }
-  }, [state, toast]);
+  }, [state, toast, onRsvpSubmitted]);
 
   return (
     <section 

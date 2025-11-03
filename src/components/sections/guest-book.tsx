@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getRsvps } from "@/app/actions";
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -9,6 +8,8 @@ import { FloralDivider } from "../floral-divider";
 import { Badge } from "@/components/ui/badge";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
 
 interface RsvpEntry {
   id: string;
@@ -18,27 +19,29 @@ interface RsvpEntry {
   createdAt: string;
 }
 
-export function GuestBook() {
-  const [rsvps, setRsvps] = useState<RsvpEntry[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+export function GuestBook({ rsvps, isLoading }: { rsvps: RsvpEntry[], isLoading: boolean }) {
+  const [currentPage, setCurrentPage] = useState(1);
   const { ref, isVisible } = useScrollAnimation();
 
-  useEffect(() => {
-    async function fetchRsvps() {
-      try {
-        setIsLoading(true);
-        const entries = await getRsvps();
-        const processedEntries = entries.map((doc: any, index: number) => ({ id: `${index}-${doc.createdAt}`, ...doc }));
-        setRsvps(processedEntries);
-      } catch (error) {
-        console.error("Failed to fetch RSVPs:", error);
-      } finally {
-        setIsLoading(false);
-      }
+  const rsvpsPerPage = 5;
+
+  // Pagination logic
+  const indexOfLastRsvp = currentPage * rsvpsPerPage;
+  const indexOfFirstRsvp = indexOfLastRsvp - rsvpsPerPage;
+  const currentRsvps = rsvps.slice(indexOfFirstRsvp, indexOfLastRsvp);
+  const totalPages = Math.ceil(rsvps.length / rsvpsPerPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
     }
-    
-    fetchRsvps();
-  }, []);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   return (
     <section 
@@ -60,12 +63,12 @@ export function GuestBook() {
             <CardTitle className="text-2xl">Ucapan & Doa</CardTitle>
           </CardHeader>
           <CardContent>
-            <ScrollArea className="h-72 md:h-96 w-full">
+            <ScrollArea className="h-96 w-full">
               <div className="space-y-6 p-4">
                 {isLoading ? (
                    <p className="text-muted-foreground">Memuat pesan...</p>
-                ) : rsvps.length > 0 ? (
-                  rsvps.map((rsvp) => (
+                ) : currentRsvps.length > 0 ? (
+                  currentRsvps.map((rsvp) => (
                     <div key={rsvp.id} className="flex items-start gap-4 text-left">
                       <Avatar>
                         <AvatarFallback>
@@ -94,6 +97,19 @@ export function GuestBook() {
                 )}
               </div>
             </ScrollArea>
+            {totalPages > 1 && (
+              <div className="flex justify-center items-center gap-4 mt-4">
+                <Button onClick={handlePrevPage} disabled={currentPage === 1}>
+                  Sebelumnya
+                </Button>
+                <span className="text-sm text-muted-foreground">
+                  Halaman {currentPage} dari {totalPages}
+                </span>
+                <Button onClick={handleNextPage} disabled={currentPage === totalPages}>
+                  Berikutnya
+                </Button>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

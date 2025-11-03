@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { EventDetails } from "@/components/sections/event-details";
 import { GuestBook } from "@/components/sections/guest-book";
 import { Hero } from "@/components/sections/hero";
@@ -8,14 +8,45 @@ import { Location } from "@/components/sections/location";
 import { Rsvp } from "@/components/sections/rsvp";
 import { Gift } from "@/components/sections/gift";
 import { Opening } from "@/components/sections/opening";
+import { getRsvps } from '@/app/actions';
+
+interface RsvpEntry {
+  id: string;
+  name: string;
+  message?: string;
+  attending: "yes" | "no";
+  createdAt: string;
+}
 
 export default function Home() {
   const [isInvitationOpen, setIsInvitationOpen] = useState(false);
+  const [rsvps, setRsvps] = useState<RsvpEntry[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const guestName = "Tamu Undangan";
+
+  const fetchRsvps = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const entries = await getRsvps();
+      const processedEntries = entries
+        .map((doc: any, index: number) => ({ id: `${index}-${doc.createdAt}`, ...doc }))
+        .reverse();
+      setRsvps(processedEntries);
+    } catch (error) {
+      console.error("Failed to fetch RSVPs:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isInvitationOpen) {
+      fetchRsvps();
+    }
+  }, [isInvitationOpen, fetchRsvps]);
 
   const handleOpenInvitation = () => {
     setIsInvitationOpen(true);
-     // Trigger audio play
     const audio = document.getElementById('background-audio') as HTMLAudioElement;
     if (audio) {
       audio.play().catch(error => {
@@ -32,8 +63,8 @@ export default function Home() {
           <Hero />
           <EventDetails />
           <Location />
-          <Rsvp guestName={guestName} />
-          <GuestBook />
+          <Rsvp guestName={guestName} onRsvpSubmitted={fetchRsvps} />
+          <GuestBook rsvps={rsvps} isLoading={isLoading} />
           <Gift />
           <footer className="w-full py-8 text-center text-muted-foreground">
             <p>Hormat kami, Lidia & Abil</p>
