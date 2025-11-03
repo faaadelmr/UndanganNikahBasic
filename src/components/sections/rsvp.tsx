@@ -23,7 +23,7 @@ function SubmitButton() {
   const { pending } = useFormStatus();
   return (
     <Button type="submit" disabled={pending} className="w-full" size="lg">
-      {pending ? "Mengirim..." : "Kirim Konfirmasi"}
+      {pending ? "Mengirim..." : "Kirim Pesan"}
       <Send className="ml-2 h-4 w-4" />
     </Button>
   );
@@ -37,7 +37,7 @@ export function Rsvp() {
   useEffect(() => {
     if (state.message && !state.errors) {
       toast({
-        title: "Konfirmasi Terkirim!",
+        title: "Pesan Terkirim!",
         description: state.message,
       });
       formRef.current?.reset();
@@ -56,8 +56,8 @@ export function Rsvp() {
       <div className="container mx-auto px-4">
         <Card className="max-w-2xl mx-auto shadow-xl">
           <CardHeader className="text-center">
-            <CardTitle className="text-4xl md:text-5xl">RSVP</CardTitle>
-            <CardDescription>Konfirmasi kehadiran Anda dan tinggalkan pesan.</CardDescription>
+            <CardTitle className="text-4xl md:text-5xl">Pesan Untuk Kedua Mempelai</CardTitle>
+            <CardDescription>Berikan ucapan dan doa restu Anda untuk kami.</CardDescription>
           </CardHeader>
           <CardContent>
             <form ref={formRef} action={formAction} className="space-y-6">
@@ -68,11 +68,11 @@ export function Rsvp() {
               </div>
               
               <div className="space-y-2">
-                <Label>Apakah Anda akan hadir?</Label>
+                <Label>Konfirmasi Kehadiran</Label>
                 <RadioGroup name="attending" defaultValue="yes" className="flex gap-4">
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="yes" id="yes" />
-                    <Label htmlFor="yes">Ya, saya akan datang!</Label>
+                    <Label htmlFor="yes">Ya, saya akan datang</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="no" id="no" />

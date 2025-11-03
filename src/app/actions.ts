@@ -37,11 +37,11 @@ export async function submitRsvp(prevState: any, formData: FormData) {
     // Untuk simulasi, kita bisa mengembalikan data yang ada
     // console.log("Current RSVPs:", rsvps);
     
-    return { message: "Terima kasih atas konfirmasi Anda!", errors: null };
+    return { message: "Terima kasih atas pesan dan doa Anda!", errors: null };
   } catch (error: any) {
     console.error("Error writing to local storage: ", error);
     return {
-      message: "Terjadi kesalahan saat mengirimkan RSVP Anda. Silakan coba lagi.",
+      message: "Terjadi kesalahan saat mengirimkan pesan Anda. Silakan coba lagi.",
       errors: null,
     };
   }
