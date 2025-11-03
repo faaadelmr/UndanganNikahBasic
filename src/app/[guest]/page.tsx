@@ -1,3 +1,4 @@
+'use client';
 import { EventDetails } from "@/components/sections/event-details";
 import { GuestBook } from "@/components/sections/guest-book";
 import { Hero } from "@/components/sections/hero";
@@ -6,10 +7,12 @@ import { Rsvp } from "@/components/sections/rsvp";
 import { Gift } from "@/components/sections/gift";
 import { Opening } from "@/components/sections/opening";
 
-export default function Home() {
+export default function GuestPage({ params }: { params: { guest: string } }) {
+  const guestName = decodeURIComponent(params.guest.replace(/\+/g, ' '));
+
   return (
     <>
-      <Opening guest="Tamu Undangan" />
+      <Opening guest={guestName} />
       <main className="flex flex-col items-center justify-center">
         <Hero />
         <EventDetails />
