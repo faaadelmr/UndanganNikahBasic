@@ -33,7 +33,7 @@ export function EventDetails() {
       id="events" 
       ref={ref}
       className={cn(
-        "w-full py-16 md:py-24 bg-secondary/50 opacity-0 transition-opacity duration-1000",
+        "w-full h-screen flex flex-col justify-center bg-secondary/50 opacity-0 transition-opacity duration-1000",
         isVisible && "animate-fade-in-up opacity-100"
       )}
     >
@@ -75,7 +75,7 @@ export function EventDetails() {
           Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai. Atas kehadiran dan doa restunya kami ucapkan terima kasih. Wassalamu’alaikum Wr. Wb.
         </p>
       </div>
-      <FloralDivider className="mt-16 md:mt-24" />
+      <FloralDivider className="mt-auto" />
     </section>
   );
 }

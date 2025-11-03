@@ -45,11 +45,11 @@ export function GuestBook() {
       id="guestbook" 
       ref={ref}
       className={cn(
-        "w-full py-16 md:py-24 bg-secondary/50 opacity-0 transition-opacity duration-1000",
+        "w-full h-screen flex flex-col justify-center bg-secondary/50 opacity-0 transition-opacity duration-1000",
         isVisible && "animate-fade-in-up opacity-100"
       )}
     >
-      <FloralDivider className="mb-16 md:mb-24"/>
+      <FloralDivider className="mb-auto"/>
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-4xl md:text-5xl font-headline mb-4">Buku Tamu</h2>
         <p className="max-w-2xl mx-auto text-muted-foreground mb-12">

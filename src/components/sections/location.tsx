@@ -18,7 +18,7 @@ export function Location() {
       id="location" 
       ref={ref}
       className={cn(
-        "w-full py-16 md:py-24 opacity-0 transition-opacity duration-1000",
+        "w-full h-screen flex flex-col justify-center opacity-0 transition-opacity duration-1000",
         isVisible && "animate-fade-in-up opacity-100"
       )}
     >
