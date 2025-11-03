@@ -1,8 +1,7 @@
 "use client";
 
-import { useActionState } from "react";
+import { memo, useActionState, useEffect, useRef } from "react";
 import { useFormStatus } from "react-dom";
-import { useEffect, useRef } from "react";
 import { submitRsvp } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -31,7 +30,7 @@ function SubmitButton() {
   );
 }
 
-export function Rsvp({ guestName, onRsvpSubmitted }: { guestName?: string, onRsvpSubmitted: () => void }) {
+const RsvpComponent = ({ guestName, onRsvpSubmitted }: { guestName?: string, onRsvpSubmitted: () => void }) => {
   const [state, formAction] = useActionState(submitRsvp, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
@@ -115,4 +114,6 @@ export function Rsvp({ guestName, onRsvpSubmitted }: { guestName?: string, onRsv
       </div>
     </section>
   );
-}
+};
+
+export const Rsvp = memo(RsvpComponent);

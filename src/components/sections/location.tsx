@@ -1,13 +1,13 @@
 "use client";
 
+import { memo } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Navigation } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
 
-
-export function Location() {
+const LocationComponent = () => {
   const { ref, isVisible } = useScrollAnimation();
   const address = "Kp. Cihideung Kecil RT.01 RW.04 Desa Neglasari Kecamatan Dramaga Kabupaten Bogor";
   const googleMapsUrl = "https://maps.app.goo.gl/qtkZQ1su1w1vkkAH8";
@@ -62,4 +62,6 @@ export function Location() {
       </div>
     </section>
   );
-}
+};
+
+export const Location = memo(LocationComponent);

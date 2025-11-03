@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { memo, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -19,7 +19,7 @@ interface RsvpEntry {
   createdAt: string;
 }
 
-export function GuestBook({ rsvps, isLoading }: { rsvps: RsvpEntry[], isLoading: boolean }) {
+const GuestBookComponent = ({ rsvps, isLoading }: { rsvps: RsvpEntry[], isLoading: boolean }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const { ref, isVisible } = useScrollAnimation();
 
@@ -115,4 +115,6 @@ export function GuestBook({ rsvps, isLoading }: { rsvps: RsvpEntry[], isLoading:
       </div>
     </section>
   );
-}
+};
+
+export const GuestBook = memo(GuestBookComponent);

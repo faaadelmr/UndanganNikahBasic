@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
@@ -27,7 +28,7 @@ const accounts: GiftAccount[] = [
   },
 ];
 
-export function Gift() {
+const GiftComponent = () => {
   const { toast } = useToast();
   const { ref, isVisible } = useScrollAnimation();
 
@@ -84,4 +85,6 @@ export function Gift() {
       </div>
     </section>
   );
-}
+};
+
+export const Gift = memo(GiftComponent);

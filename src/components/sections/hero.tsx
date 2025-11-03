@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 
-export function Hero() {
+const HeroComponent = () => {
   const heroImage = PlaceHolderImages.find(img => img.id === 'hero-bg');
 
   return (
@@ -39,4 +40,6 @@ export function Hero() {
       </div>
     </section>
   );
-}
+};
+
+export const Hero = memo(HeroComponent);

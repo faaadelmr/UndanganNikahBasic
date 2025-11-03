@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Clock, MapPin, Heart } from "lucide-react";
 import { FloralDivider } from "../floral-divider";
@@ -25,7 +26,7 @@ const events = [
   },
 ];
 
-export function EventDetails() {
+const EventDetailsComponent = () => {
   const { ref, isVisible } = useScrollAnimation();
   
   return (
@@ -78,4 +79,6 @@ export function EventDetails() {
       <FloralDivider className="mt-auto" />
     </section>
   );
-}
+};
+
+export const EventDetails = memo(EventDetailsComponent);
