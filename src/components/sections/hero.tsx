@@ -34,7 +34,7 @@ export function Hero() {
           <p className="text-sm md:text-base text-primary-foreground/80">Putra Ke-2 dari Bpk. Edith Widaswara & Ibu Yuliyanti</p>
         </div>
         <p className="text-lg md:text-xl font-light mt-12">
-          19 Maret 2023
+          16 November 2025
         </p>
       </div>
     </section>

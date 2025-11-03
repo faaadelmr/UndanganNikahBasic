@@ -6,7 +6,7 @@ const events = [
   {
     icon: Heart,
     title: "Akad Nikah",
-    date: "Minggu, 19 Maret 2023",
+    date: "Minggu, 16 November 2025",
     time: "08:00 WIB - selesai",
     location: "Kediaman Mempelai Wanita",
     address: "Kp. Cihideung Kecil RT.01 RW.04 Desa Neglasari Kecamatan Dramaga Kabupaten Bogor",
@@ -14,7 +14,7 @@ const events = [
   {
     icon: Heart,
     title: "Resepsi",
-    date: "Minggu, 19 Maret 2023",
+    date: "Minggu, 16 November 2025",
     time: "19:00 WIB - selesai",
     location: "Kediaman Mempelai Wanita",
     address: "Kp. Cihideung Kecil RT.01 RW.04 Desa Neglasari Kecamatan Dramaga Kabupaten Bogor",
