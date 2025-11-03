@@ -11,6 +11,7 @@ import { Opening } from "@/components/sections/opening";
 
 export default function Home() {
   const [isInvitationOpen, setIsInvitationOpen] = useState(false);
+  const guestName = "Tamu Undangan";
 
   const handleOpenInvitation = () => {
     setIsInvitationOpen(true);
@@ -18,13 +19,13 @@ export default function Home() {
 
   return (
     <>
-      {!isInvitationOpen && <Opening guest="Tamu Undangan" onOpen={handleOpenInvitation} />}
+      {!isInvitationOpen && <Opening guest={guestName} onOpen={handleOpenInvitation} />}
       {isInvitationOpen && (
         <main className="flex flex-col items-center justify-center animate-fade-in-up">
           <Hero />
           <EventDetails />
           <Location />
-          <Rsvp />
+          <Rsvp guestName={guestName} />
           <GuestBook />
           <Gift />
           <footer className="w-full py-8 text-center text-muted-foreground">

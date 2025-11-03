@@ -29,10 +29,12 @@ function SubmitButton() {
   );
 }
 
-export function Rsvp() {
+export function Rsvp({ guestName }: { guestName?: string }) {
   const [state, formAction] = useActionState(submitRsvp, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
+
+  const isEditable = guestName === "Tamu Undangan";
 
   useEffect(() => {
     if (state.message && !state.errors) {
@@ -63,7 +65,14 @@ export function Rsvp() {
             <form ref={formRef} action={formAction} className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="name">Nama Anda</Label>
-                <Input id="name" name="name" placeholder="John Doe" required />
+                <Input 
+                  id="name" 
+                  name="name" 
+                  placeholder="John Doe" 
+                  defaultValue={guestName && !isEditable ? guestName : ''}
+                  readOnly={!isEditable}
+                  required 
+                />
                 {state.errors?.name && <p className="text-sm text-destructive">{state.errors.name[0]}</p>}
               </div>
               

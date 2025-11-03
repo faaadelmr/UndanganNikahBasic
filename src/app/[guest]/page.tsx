@@ -27,7 +27,7 @@ export default function GuestPage({ params }: { params: { guest: string } }) {
           <Hero />
           <EventDetails />
           <Location />
-          <Rsvp />
+          <Rsvp guestName={guestName} />
           <GuestBook />
           <Gift />
           <footer className="w-full py-8 text-center text-muted-foreground">
