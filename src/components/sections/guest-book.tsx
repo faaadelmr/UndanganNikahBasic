@@ -35,9 +35,6 @@ export function GuestBook() {
     }
     
     fetchRsvps();
-    const interval = setInterval(fetchRsvps, 5000); 
-
-    return () => clearInterval(interval);
   }, []);
 
   return (

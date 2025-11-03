@@ -6,7 +6,7 @@ import { Play, Pause } from "lucide-react";
 
 export function AudioPlayer() {
   // Ganti URL ini dengan URL file musik Anda
-  const localSongUrl = "/cincin.mp3.m4a";
+  const localSongUrl = "/bermuara.ogg";
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
