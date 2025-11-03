@@ -16,21 +16,21 @@ export function Opening({ guest }: { guest: string }) {
   const heroImage = PlaceHolderImages.find(img => img.id === 'hero-bg');
 
   const handleOpen = () => {
-    if (isLoading) return; // Mencegah klik ganda saat sedang loading
+    if (isLoading) return;
     
     setIsLoading(true);
     
-    // Simulasi waktu loading, lalu fade out
+    // Simulate loading time, then fade out
     setTimeout(() => {
       setIsLoading(false);
       setIsOpen(true);
       setIsFading(true);
-    }, 1500);
+    }, 500); // Reduced loading time to 500ms
   };
   
   useEffect(() => {
     if (isFading) {
-      // Hapus komponen dari DOM setelah transisi fade out selesai
+      // Unmount component after fade-out transition
       const fadeOutTimer = setTimeout(() => {
         setIsRendered(false);
       }, 1000);
@@ -39,14 +39,14 @@ export function Opening({ guest }: { guest: string }) {
   }, [isFading]);
 
   useEffect(() => {
-    // Mencegah scroll body saat halaman pembuka terlihat
+    // Prevent body scrolling when the opening component is visible
     if (isRendered) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
     }
 
-    // Fungsi cleanup untuk mengembalikan scrolling
+    // Cleanup function to restore scrolling
     return () => {
       document.body.style.overflow = 'auto';
     };
@@ -91,7 +91,7 @@ export function Opening({ guest }: { guest: string }) {
           ) : (
             <Mail className="mr-2 h-4 w-4" />
           )}
-          {isLoading ? 'Membuka Undangan...' : 'Buka Undangan'}
+          {isLoading ? 'Membuka...' : 'Buka Undangan'}
         </Button>
       </div>
     </div>
