@@ -1,5 +1,4 @@
 import { EventDetails } from "@/components/sections/event-details";
-import { Gallery } from "@/components/sections/gallery";
 import { GuestBook } from "@/components/sections/guest-book";
 import { Hero } from "@/components/sections/hero";
 import { Location } from "@/components/sections/location";
@@ -12,7 +11,6 @@ export default function Home() {
       <Hero />
       <EventDetails />
       <Location />
-      <Gallery />
       <Rsvp />
       <GuestBook />
       <Gift />
