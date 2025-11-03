@@ -1,9 +1,21 @@
 "use server";
 
 import { z } from "zod";
+import fs from "fs/promises";
+import path from "path";
 
-// Data akan disimpan di memori server, akan hilang saat server restart.
-const rsvps: any[] = [];
+// Tentukan path ke file JSON
+const rsvpFilePath = path.join(process.cwd(), 'data', 'rsvps.json');
+
+// Fungsi untuk memastikan file dan direktori ada
+async function ensureRsvpFile() {
+  try {
+    await fs.access(rsvpFilePath);
+  } catch {
+    await fs.mkdir(path.dirname(rsvpFilePath), { recursive: true });
+    await fs.writeFile(rsvpFilePath, JSON.stringify([]));
+  }
+}
 
 const rsvpSchema = z.object({
   name: z.string().min(2, "Nama terlalu pendek"),
@@ -28,18 +40,22 @@ export async function submitRsvp(prevState: any, formData: FormData) {
   }
   
   try {
+    await ensureRsvpFile();
+    const fileContent = await fs.readFile(rsvpFilePath, 'utf8');
+    const rsvps = JSON.parse(fileContent);
+
     const newRsvp = {
       ...validatedFields.data,
-      createdAt: new Date(),
+      createdAt: new Date().toISOString(),
     };
-    rsvps.unshift(newRsvp); // Menambahkan ke awal array
     
-    // Untuk simulasi, kita bisa mengembalikan data yang ada
-    // console.log("Current RSVPs:", rsvps);
+    rsvps.unshift(newRsvp); // Menambahkan ke awal array
+
+    await fs.writeFile(rsvpFilePath, JSON.stringify(rsvps, null, 2));
     
     return { message: "Terima kasih atas pesan dan doa Anda!", errors: null };
   } catch (error: any) {
-    console.error("Error writing to local storage: ", error);
+    console.error("Error writing to JSON file: ", error);
     return {
       message: "Terjadi kesalahan saat mengirimkan pesan Anda. Silakan coba lagi.",
       errors: null,
@@ -47,8 +63,15 @@ export async function submitRsvp(prevState: any, formData: FormData) {
   }
 }
 
-// Fungsi baru untuk mendapatkan data RSVP
+// Fungsi untuk mendapatkan data RSVP
 export async function getRsvps() {
-  // Mengembalikan salinan array agar tidak termutasi dari luar
-  return JSON.parse(JSON.stringify(rsvps));
+  try {
+    await ensureRsvpFile();
+    const fileContent = await fs.readFile(rsvpFilePath, 'utf8');
+    const rsvps = JSON.parse(fileContent);
+    return rsvps;
+  } catch (error) {
+    console.error("Error reading from JSON file: ", error);
+    return [];
+  }
 }
