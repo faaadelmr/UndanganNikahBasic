@@ -15,6 +15,13 @@ export default function Home() {
 
   const handleOpenInvitation = () => {
     setIsInvitationOpen(true);
+     // Trigger audio play
+    const audio = document.getElementById('background-audio') as HTMLAudioElement;
+    if (audio) {
+      audio.play().catch(error => {
+        console.error("Audio play failed:", error);
+      });
+    }
   };
 
   return (

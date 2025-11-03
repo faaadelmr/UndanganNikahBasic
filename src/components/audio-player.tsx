@@ -10,33 +10,41 @@ export function AudioPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  // Efek untuk mencoba memulai musik secara otomatis
   useEffect(() => {
-    const playPromise = audioRef.current?.play();
-    if (playPromise !== undefined) {
-      playPromise.then(_ => {
-        // Autoplay berhasil
+    const audio = audioRef.current;
+    if (audio) {
+      const handlePlay = () => setIsPlaying(true);
+      const handlePause = () => setIsPlaying(false);
+      
+      audio.addEventListener('play', handlePlay);
+      audio.addEventListener('pause', handlePause);
+
+      // Set initial state
+      if (!audio.paused) {
         setIsPlaying(true);
-      }).catch(error => {
-        // Autoplay gagal, user harus berinteraksi dulu
-        console.log("Autoplay was prevented:", error);
-        setIsPlaying(false);
-      });
+      }
+      
+      return () => {
+        audio.removeEventListener('play', handlePlay);
+        audio.removeEventListener('pause', handlePause);
+      }
     }
   }, []);
 
   const togglePlayPause = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
     if (isPlaying) {
-      audioRef.current?.pause();
+      audio.pause();
     } else {
-      audioRef.current?.play();
+      audio.play();
     }
-    setIsPlaying(!isPlaying);
   };
 
   return (
     <>
-      <audio ref={audioRef} src={localSongUrl} loop />
+      <audio id="background-audio" ref={audioRef} src={localSongUrl} loop />
       <div className="fixed bottom-4 right-4 z-50">
         <Button
           size="icon"
