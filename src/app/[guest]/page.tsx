@@ -8,7 +8,9 @@ import { Gift } from "@/components/sections/gift";
 import { Opening } from "@/components/sections/opening";
 
 export default function GuestPage({ params }: { params: { guest: string } }) {
-  const guestName = decodeURIComponent(params.guest.replace(/\+/g, ' '));
+  // The guest name is URL-encoded. We need to decode it.
+  // The '+' character is a space.
+  const guestName = decodeURIComponent(params.guest || '').replace(/\+/g, ' ');
 
   return (
     <>
