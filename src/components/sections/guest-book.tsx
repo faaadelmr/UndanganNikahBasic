@@ -45,7 +45,7 @@ export function GuestBook() {
       id="guestbook" 
       ref={ref}
       className={cn(
-        "w-full h-screen flex flex-col justify-center bg-secondary/50 opacity-0 transition-opacity duration-1000",
+        "w-full min-h-screen flex flex-col justify-center bg-secondary/50 opacity-0 transition-opacity duration-1000 py-20 md:py-0",
         isVisible && "animate-fade-in-up opacity-100"
       )}
     >
@@ -60,7 +60,7 @@ export function GuestBook() {
             <CardTitle className="text-2xl">Ucapan & Doa</CardTitle>
           </CardHeader>
           <CardContent>
-            <ScrollArea className="h-96 w-full">
+            <ScrollArea className="h-72 md:h-96 w-full">
               <div className="space-y-6 p-4">
                 {isLoading ? (
                    <p className="text-muted-foreground">Memuat pesan...</p>

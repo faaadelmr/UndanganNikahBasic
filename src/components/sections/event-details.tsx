@@ -33,7 +33,7 @@ export function EventDetails() {
       id="events" 
       ref={ref}
       className={cn(
-        "w-full h-screen flex flex-col justify-center bg-secondary/50 opacity-0 transition-opacity duration-1000",
+        "w-full min-h-screen flex flex-col justify-center bg-secondary/50 opacity-0 transition-opacity duration-1000 py-20 md:py-0",
         isVisible && "animate-fade-in-up opacity-100"
       )}
     >

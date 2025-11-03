@@ -60,7 +60,7 @@ export function Rsvp({ guestName }: { guestName?: string }) {
       id="rsvp" 
       ref={ref}
       className={cn(
-        "w-full h-screen flex flex-col justify-center opacity-0 transition-opacity duration-1000",
+        "w-full min-h-screen flex flex-col justify-center opacity-0 transition-opacity duration-1000 py-20 md:py-0",
         isVisible && "animate-fade-in-up opacity-100"
       )}
     >
