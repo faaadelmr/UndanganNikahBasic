@@ -1,21 +1,10 @@
 "use server";
 
 import { z } from "zod";
-import fs from "fs/promises";
-import path from "path";
+import { getSheetsData, appendSheetData } from '../lib/google-sheets';
 
-// Tentukan path ke file JSON
-const rsvpFilePath = path.join(process.cwd(), 'data', 'rsvps.json');
-
-// Fungsi untuk memastikan file dan direktori ada
-async function ensureRsvpFile() {
-  try {
-    await fs.access(rsvpFilePath);
-  } catch {
-    await fs.mkdir(path.dirname(rsvpFilePath), { recursive: true });
-    await fs.writeFile(rsvpFilePath, JSON.stringify([]));
-  }
-}
+const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
+const RANGE_NAME = 'Sheet1!A:D'; // Assuming columns are: Name, Attending, Message, CreatedAt
 
 const rsvpSchema = z.object({
   name: z.string().min(2, "Nama terlalu pendek"),
@@ -40,22 +29,22 @@ export async function submitRsvp(prevState: any, formData: FormData) {
   }
   
   try {
-    await ensureRsvpFile();
-    const fileContent = await fs.readFile(rsvpFilePath, 'utf8');
-    const rsvps = JSON.parse(fileContent);
+    if (!SPREADSHEET_ID) {
+      throw new Error("Spreadsheet ID is not defined");
+    }
 
     const newRsvp = {
       ...validatedFields.data,
       createdAt: new Date().toISOString(),
     };
-    
-    rsvps.unshift(newRsvp); // Menambahkan ke awal array
 
-    await fs.writeFile(rsvpFilePath, JSON.stringify(rsvps, null, 2));
+    const values = [[newRsvp.name, newRsvp.attending, newRsvp.message || '', newRsvp.createdAt]];
+    
+    await appendSheetData(SPREADSHEET_ID, RANGE_NAME, values);
     
     return { message: "Terima kasih atas pesan dan doa Anda!", errors: null };
   } catch (error: any) {
-    console.error("Error writing to JSON file: ", error);
+    console.error("Error details: ", error);
     return {
       message: "Terjadi kesalahan saat mengirimkan pesan Anda. Silakan coba lagi.",
       errors: null,
@@ -66,12 +55,23 @@ export async function submitRsvp(prevState: any, formData: FormData) {
 // Fungsi untuk mendapatkan data RSVP
 export async function getRsvps() {
   try {
-    await ensureRsvpFile();
-    const fileContent = await fs.readFile(rsvpFilePath, 'utf8');
-    const rsvps = JSON.parse(fileContent);
+    if (!SPREADSHEET_ID) {
+      throw new Error("Spreadsheet ID is not defined");
+    }
+    const data = await getSheetsData(SPREADSHEET_ID, RANGE_NAME);
+    if (!data) {
+      return [];
+    }
+    // Assuming the first row is the header
+    const rsvps = data.slice(1).map(row => ({
+      name: row[0],
+      attending: row[1],
+      message: row[2],
+      createdAt: row[3],
+    }));
     return rsvps;
   } catch (error) {
-    console.error("Error reading from JSON file: ", error);
+    console.error("Error details: ", error);
     return [];
   }
 }
