@@ -1,14 +1,27 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Navigation } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
+
 
 export function Location() {
+  const { ref, isVisible } = useScrollAnimation();
   const address = "Kp. Cihideung Kecil RT.01 RW.04 Desa Neglasari Kecamatan Dramaga Kabupaten Bogor";
   const googleMapsUrl = "https://maps.app.goo.gl/qtkZQ1su1w1vkkAH8";
   const googleMapsEmbedUrl = "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6328.595952289873!2d106.71927139446966!3d-6.546404391152571!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c4d2d128eb5d%3A0xb712295850afcbd1!2sJl.%20Cihideung%20Kecil%2C%20Neglasari%2C%20Kec.%20Dramaga%2C%20Kabupaten%20Bogor%2C%20Jawa%20Barat%2016680!5e0!3m2!1sen!2sid!4v1761919087804!5m2!1sen!2sid";
 
   return (
-    <section id="location" className="w-full py-16 md:py-24">
+    <section 
+      id="location" 
+      ref={ref}
+      className={cn(
+        "w-full py-16 md:py-24 opacity-0 transition-opacity duration-1000",
+        isVisible && "animate-fade-in-up opacity-100"
+      )}
+    >
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-4xl md:text-5xl font-headline mb-4">Lokasi Acara</h2>
         <p className="max-w-2xl mx-auto text-muted-foreground mb-12">

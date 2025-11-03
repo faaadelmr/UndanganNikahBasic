@@ -13,6 +13,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Send } from "lucide-react";
 import { FloralDivider } from "../floral-divider";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
 
 const initialState = {
   message: "",
@@ -33,8 +35,9 @@ export function Rsvp({ guestName }: { guestName?: string }) {
   const [state, formAction] = useActionState(submitRsvp, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
+  const { ref, isVisible } = useScrollAnimation();
 
-  const isEditable = guestName === "Tamu Undangan";
+  const isEditable = !guestName || guestName === "Tamu Undangan";
 
   useEffect(() => {
     if (state.message && !state.errors) {
@@ -53,7 +56,14 @@ export function Rsvp({ guestName }: { guestName?: string }) {
   }, [state, toast]);
 
   return (
-    <section id="rsvp" className="w-full py-16 md:py-24">
+    <section 
+      id="rsvp" 
+      ref={ref}
+      className={cn(
+        "w-full py-16 md:py-24 opacity-0 transition-opacity duration-1000",
+        isVisible && "animate-fade-in-up opacity-100"
+      )}
+    >
        <FloralDivider className="mb-16 md:mb-24"/>
       <div className="container mx-auto px-4">
         <Card className="max-w-2xl mx-auto shadow-xl">

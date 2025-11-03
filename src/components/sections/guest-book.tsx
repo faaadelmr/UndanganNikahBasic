@@ -7,6 +7,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { FloralDivider } from "../floral-divider";
 import { Badge } from "@/components/ui/badge";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
 
 interface RsvpEntry {
   id: string;
@@ -19,6 +21,7 @@ interface RsvpEntry {
 export function GuestBook() {
   const [rsvps, setRsvps] = useState<RsvpEntry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { ref, isVisible } = useScrollAnimation();
 
   useEffect(() => {
     async function fetchRsvps() {
@@ -38,7 +41,14 @@ export function GuestBook() {
   }, []);
 
   return (
-    <section id="guestbook" className="w-full py-16 md:py-24 bg-secondary/50">
+    <section 
+      id="guestbook" 
+      ref={ref}
+      className={cn(
+        "w-full py-16 md:py-24 bg-secondary/50 opacity-0 transition-opacity duration-1000",
+        isVisible && "animate-fade-in-up opacity-100"
+      )}
+    >
       <FloralDivider className="mb-16 md:mb-24"/>
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-4xl md:text-5xl font-headline mb-4">Buku Tamu</h2>

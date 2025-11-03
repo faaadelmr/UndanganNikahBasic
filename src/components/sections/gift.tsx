@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Copy, Gift as GiftIcon } from "lucide-react";
 import { FloralDivider } from "../floral-divider";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
 
 interface GiftAccount {
   bank: string;
@@ -27,6 +29,7 @@ const accounts: GiftAccount[] = [
 
 export function Gift() {
   const { toast } = useToast();
+  const { ref, isVisible } = useScrollAnimation();
 
   const handleCopy = (text: string, bank: string) => {
     navigator.clipboard.writeText(text);
@@ -37,7 +40,14 @@ export function Gift() {
   };
 
   return (
-    <section id="gift" className="w-full py-16 md:py-24">
+    <section 
+      id="gift" 
+      ref={ref}
+      className={cn(
+        "w-full py-16 md:py-24 opacity-0 transition-opacity duration-1000",
+        isVisible && "animate-fade-in-up opacity-100"
+      )}
+    >
       <FloralDivider className="mb-16 md:mb-24"/>
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-4xl md:text-5xl font-headline mb-4">Hadiah Pernikahan</h2>

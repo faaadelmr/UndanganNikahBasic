@@ -1,6 +1,10 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Clock, MapPin, Heart } from "lucide-react";
 import { FloralDivider } from "../floral-divider";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
 
 const events = [
   {
@@ -22,8 +26,17 @@ const events = [
 ];
 
 export function EventDetails() {
+  const { ref, isVisible } = useScrollAnimation();
+  
   return (
-    <section id="events" className="w-full py-16 md:py-24 bg-secondary/50">
+    <section 
+      id="events" 
+      ref={ref}
+      className={cn(
+        "w-full py-16 md:py-24 bg-secondary/50 opacity-0 transition-opacity duration-1000",
+        isVisible && "animate-fade-in-up opacity-100"
+      )}
+    >
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-4xl md:text-5xl font-headline mb-4">Acara Pernikahan</h2>
         <p className="max-w-3xl mx-auto text-muted-foreground mb-12 px-4">

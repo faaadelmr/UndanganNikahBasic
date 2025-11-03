@@ -74,18 +74,9 @@
   }
   body {
     @apply bg-background text-foreground;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  body::-webkit-scrollbar {
-    display: none;
   }
   html {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  html::-webkit-scrollbar {
-    display: none;
+    scroll-behavior: smooth;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-headline;
