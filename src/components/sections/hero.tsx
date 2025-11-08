@@ -32,7 +32,7 @@ const HeroComponent = () => {
           <p className="text-lg md:text-xl tracking-widest uppercase font-light">
             Yusril Parhabil Lufi (Abil)
           </p>
-          <p className="text-sm md:text-base text-primary-foreground/80">Putra Ke-2 dari Bpk. Edith Widaswara & Ibu Yuliyanti</p>
+          <p className="text-sm md:text-base text-primary-foreground/80">Putra Ke-2 dari Bpk. Edih Widaswara & Ibu Yuliyanti</p>
         </div>
         <p className="text-lg md:text-xl font-light mt-12">
           16 November 2025
